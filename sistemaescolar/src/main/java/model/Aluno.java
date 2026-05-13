@@ -11,7 +11,8 @@ public class Aluno {
     private String telefone;
 
     //construtor para criar novo aluno
-    public Aluno(String cpf, String email, LocalDate data_nascimento, String telefone) {
+    public Aluno(String nome, String cpf, String email, LocalDate data_nascimento, String telefone) {
+        this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.data_nascimento = data_nascimento;
@@ -80,8 +81,8 @@ public class Aluno {
     @Override
     public String toString(){
         return String.format(
-                "Aluno: id=%d - nome=%s - cpf=%s - email=%s - nascido =%s - telefone =%s",
-                nome, cpf, email, data_nascimento, telefone
+                "Aluno: id=%d - nome=%s - cpf=%s - email=%s - nascimento =%s - telefone =%s",
+                id,nome, cpf, email, data_nascimento, telefone
         );
     }
 }
