@@ -104,8 +104,10 @@ public class alunoDAOImplements implements IAlunoDAO {
             stmt.setString(1,aluno.getNome());
             stmt.setString(2,aluno.getEmail());
             stmt.setString(3,aluno.getTelefone());
-            stmt.setString(4,aluno.getId());
+            stmt.setInt(4,aluno.getId());
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
     }

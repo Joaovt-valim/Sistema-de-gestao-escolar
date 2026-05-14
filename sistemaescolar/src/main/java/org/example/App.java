@@ -1,9 +1,10 @@
 package org.example;
 
 import daoImplements.alunoDAOImplements;
-import database.SqlConn;
+import daoImplements.turmaDAOimplements;
 import database.SqlConn;
 import model.Aluno;
+import model.Turma;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,6 +19,7 @@ public class App
         SqlConn.testarContection();
 
         alunoDAOImplements alunoDaoMethods = new alunoDAOImplements();
+        turmaDAOimplements turmaDaoMethods = new turmaDAOimplements();
         Scanner scanner = new Scanner(System.in);
 
         int opcao;
@@ -29,6 +31,7 @@ public class App
             System.out.println("3. Excluir Aluno ");
             System.out.println("4. Listar Aluno");
             System.out.println("5. Procurar Aluno por Id");
+            System.out.println("6. Listar Aluno por Turma");
             System.out.println("0. Sair do programa ");
 
             opcao = scanner.nextInt();
@@ -116,11 +119,45 @@ public class App
                     break;
                 case 5:
                     System.out.println("Procurar por aluno por id");
+                    int idBusca = scanner.nextInt();
 
+                    Optional<Aluno> alunoEncontrado2 = alunoDaoMethods.bucarPorId(idBusca);
+
+                    if (alunoEncontrado2.isPresent()){
+                        System.out.print(alunoEncontrado2);
+                    }else {
+                        System.out.println("Nenhum aluno encontrado!");
+                        break;
+                    }
+                case 6:
+                    System.out.println("Listar turmas");
+
+                    List<Turma> todasTurmas = turmaDaoMethods.listarTodasTurmas();
+
+                    if (todasTurmas.isEmpty()){
+                        System.out.println("Nenhuma turma encontrada");
+                    } else {
+                        for (Turma turma : todasTurmas){
+                            System.out.println(turma);
+                        }
+                    }
+                    System.out.println("Informe o id da turma para visualizar os alunos: ");
+                    int idInformado = scanner.nextInt();
+
+                    List<Aluno> alunosTurmaEncontrada = turmaDaoMethods.listarAlunosPorTurmaId(idInformado);
+
+                    if (alunosTurmaEncontrada.isEmpty()){
+                        System.out.println("Nenhum aluno encontrado nessa turma!");
+                    } else {
+                        System.out.println("Alunos matriculados: ");
+                        for (Aluno aluno :alunosTurmaEncontrada){
+                            System.out.println(aluno);
+                        }
+                    }
+                case 0:
+                    System.out.println("Saindo do programa");
             }
         } while (opcao != 0);
-
-
 
 
     }
